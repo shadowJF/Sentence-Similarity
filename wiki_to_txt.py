@@ -5,7 +5,7 @@ import sys
 from gensim.corpora import WikiCorpus
 
 def main():
-
+    print(sys.argv)
     if len(sys.argv) != 2:
         print("Usage: python " + sys.argv[0] + " wiki_data_path")
         exit()

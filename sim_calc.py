@@ -11,7 +11,7 @@ def get_sentence_vector(sentence,model,stopwordset):
 	words = jieba.cut(sentence, cut_all=False)
 	
 	for word in words:
-		if word not in stopwordset:
+		if word not in stopwordset and word.strip()!='':
 			word_vector_list.append(model[word])
 	
 	result_vector = [0] * 250
@@ -41,9 +41,9 @@ def main():
 
 	logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
 	
-	if(len(sys.argv)!=3):
-		logging.info("usage: python " + sys.argv[0] + " sentence1 sentence2")
-		exit()
+	#if(len(sys.argv)!=3):
+	#	logging.info("usage: python " + sys.argv[0] + " sentence1 sentence2")
+	#	exit()
 
 	# load stopwords set
 	stopwordset = set()
@@ -52,16 +52,22 @@ def main():
 			stopwordset.add(line.strip('\n'))
 			
 	model = word2vec.Word2Vec.load_word2vec_format("med250.model.bin", binary=True)
-		
-	sent1 = sys.argv[1]
-	sent2 = sys.argv[2]
 	
-	vector1 = get_sentence_vector(sent1,model,stopwordset)
-	vector2 = get_sentence_vector(sent2,model,stopwordset)
+	while True:
+		sent1 = input("请输入第一句话：")
+		sent2 = input("请输入第二句话：")	
+	
+	#sent1 = sys.argv[1]
+	#sent2 = sys.argv[2]
+		try:	
+			vector1 = get_sentence_vector(sent1,model,stopwordset)
+			vector2 = get_sentence_vector(sent2,model,stopwordset)
 
-	similarity = calc_sim(vector1,vector2)
+			similarity = calc_sim(vector1,vector2)
 	
-	print(similarity)
+			print("相似度：" + str(similarity))
+		except Exception as e:
+			print(e)
 
 if __name__ == "__main__":
 	main()
