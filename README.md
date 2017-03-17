@@ -8,5 +8,7 @@
 * segment.py是对文本进行分词的代码
 * train.py是对语料进行训练得到word2vec模型的代码
 * sim_calc.py是计算两个句子间余弦相似度的代码
+* wiki_trainer.py是上面四个python程序的整合，通过执行该一个程序完成一键从wiki语料训练得到word2vec模型
+* sim_calc_server.py是基于flask的web服务，提供了计算相似度的rest api
 
 具体参考：我的个人博客[Chat Robot](http://shadowjf.github.io/2017/02/08/Chat-Robot.html)
